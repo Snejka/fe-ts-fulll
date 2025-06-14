@@ -27,11 +27,11 @@ function App() {
             placeholder="Search users..."
             // value={searchTerm}
             // onChange={(e) => setSearchTerm(e.target.value)}
-            className="user-serch"
+            className="user-search"
           />
 
-          <div className='controls'>
-            <label>
+          <div className='control-bar'>
+            <label className="select-all">
               <input
                   type="checkbox"
                   checked={true} // This should be controlled by state
@@ -39,9 +39,10 @@ function App() {
                 />
                 0 items selected
             </label>
-
-            <button className="select-all">Select All</button>
-            <button className="deselect-all">Deselect All</button>
+            <div className='btn-group'>
+              <button className="copy-all"><i className="fa-regular fa-copy"></i></button>
+              <button className="delete-all"><i className="fa-regular fa-trash-can"></i></button>
+            </div>
           </div>
         </section>
 
@@ -59,32 +60,14 @@ function App() {
                   <p>ID: {user.id}</p>
                   <h1 className='card-title'>{user.login}</h1> 
                 </div>
-                <button className="view-button" onClick={() => console.log(user)} >
+                <button className="main-button" onClick={() => console.log(user)} >
                   View Profile
                 </button>
             </li>
             ))}
           </ul>
         </section>
-        <ul>
-          {typedUsers.map(user => (
-            <li key={user.id} className="card">
-              <input
-                type="checkbox"
-                checked={true} // This should be controlled by state
-                // onChange={() => onCheck(user.id)}
-              />
-              <img src={user.avatar_url} alt={user.login} />
-              <div className='info'>
-                <p>ID: {user.id}</p>
-                <h1>{user.login}</h1> 
-              </div>
-              <button onClick={() => console.log(user)} className="view-button">
-                View Profile
-              </button>
-          </li>
-          ))}
-        </ul>
+        
       </main>
       <footer>
         More Data
