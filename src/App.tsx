@@ -106,6 +106,7 @@ function App() {
 
         {loading && <p>Loading...</p>}
         {error && <p className="error">{error}</p>}
+        {(users.length < 1 && !loading) && <p className="error">Make a search to show users</p>}
 
         <UserList
           users={users}
