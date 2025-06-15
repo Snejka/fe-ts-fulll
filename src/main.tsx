@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { EditModeProvider } from "./context/EditModeContext";
+import { EditModeProvider } from "./context/EditModeProvider";
 import './index.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import App from './App.tsx'

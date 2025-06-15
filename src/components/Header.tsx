@@ -1,4 +1,4 @@
-import { useEditMode } from "../context/EditModeContext";
+import { useEditMode } from "../hooks/useEditMode";
 
 export default function Header() {
 

@@ -1,4 +1,4 @@
-import { useEditMode } from "../context/EditModeContext";
+import { useEditMode } from "../hooks/useEditMode";
 
 type SearchBarProps = {
   query: string;
@@ -15,7 +15,7 @@ export default function SearchBar({
     allSelected,
     onSelectAll,
 }: SearchBarProps) {
-    
+
     const { isEditMode } = useEditMode();
 
     const hasSelection = selectedCount > 0;

@@ -1,4 +1,4 @@
-import { useEditMode } from "../context/EditModeContext";
+import { useEditMode } from "../hooks/useEditMode";
 import type { User } from '../types/User';
 
 type UserCardProps = {
