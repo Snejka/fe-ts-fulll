@@ -13,37 +13,39 @@ export default function SearchBar({
     allSelected,
     onSelectAll,
 }: SearchBarProps) {
-  return (
-    <section className="search-section">
-        <input
-            type="text"
-            name="main-search"
-            placeholder="Search users..."
-            className="user-search"
-            value={query}
-            onChange={(e) => onSearchChange(e.target.value)}
-        />
+    const hasSelection = selectedCount > 0;
 
-        <div className="control-bar">
-            <label className="select-all" htmlFor="checked-items">
-                <input
-                    id="checked-items"
-                    type="checkbox"
-                    onChange={onSelectAll}
-                    checked={allSelected}
-                />{" "}
-                {selectedCount > 0 ? `${selectedCount} items selected` : "Select All"}
-            </label>
+    return (
+        <section className="search-section">
+            <input
+                type="text"
+                name="main-search"
+                placeholder="Search users..."
+                className="user-search"
+                value={query}
+                onChange={(e) => onSearchChange(e.target.value)}
+            />
 
-            <div className="btn-group">
-                <button className="icon-button">
-                    <i className="fa-regular fa-copy"></i>
-                </button>
-                <button className="icon-button">
-                    <i className="fa-regular fa-trash-can"></i>
-                </button>
+            <div className="control-bar">
+                <label className="select-all" htmlFor="checked-items">
+                    <input
+                        id="checked-items"
+                        type="checkbox"
+                        onChange={onSelectAll}
+                        checked={allSelected}
+                    />{" "}
+                    { hasSelection ? `${selectedCount} items selected` : "Select All"}
+                </label>
+
+                { hasSelection && <div className="btn-group">
+                    <button className="icon-button">
+                        <i className="fa-regular fa-copy"></i>
+                    </button>
+                    <button className="icon-button">
+                        <i className="fa-regular fa-trash-can"></i>
+                    </button>
+                </div> }
             </div>
-        </div>
-    </section>
-  );
+        </section>
+    );
 }

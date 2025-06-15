@@ -54,6 +54,7 @@ function App() {
     if (!debouncedQuery) {
       setUsers([]);
       setError("");
+      setCheckedUsers([]);
       return;
     }
 
