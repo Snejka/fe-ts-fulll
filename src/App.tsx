@@ -1,9 +1,12 @@
-// import { useState } from 'react'
+import { useState } from 'react';
 import rawData from './mocks/users.json';
 import type { User } from './types/User';
 
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import Header from './components/Header';
+import SearchBar from './components/SearchBar';
+import UserList from './components/UserList';
+import Footer from './components/Footer';
+
 import './App.css';
 
 type UserResponse = {
@@ -13,19 +16,27 @@ type UserResponse = {
 };
 
 function App() {
-
   const data = rawData as UserResponse;
   const typedUsers = data.items;
-  
+
+  const [checkedUsers, setCheckedUsers] = useState<number[]>([]);
+
+  const handleCheck = (id: number) => {
+    setCheckedUsers(prev =>
+      prev.includes(id) ? prev.filter(uid => uid !== id) : [...prev, id]
+    );
+  };
+
   return (
     <>
-      <ul>
-        {typedUsers.map(user => (
-          <li key={user.id}>{user.login}</li>
-        ))}
-      </ul>
+      <Header />
+      <main>
+        <SearchBar selectedCount={checkedUsers.length} />
+        <UserList users={typedUsers} checkedUsers={checkedUsers} onCheck={handleCheck} />
+      </main>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
