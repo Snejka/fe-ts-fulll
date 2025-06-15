@@ -54,7 +54,6 @@ function App() {
     if (!debouncedQuery) {
       setUsers([]);
       setError("");
-      setCheckedUsers([]);
       return;
     }
 
@@ -101,7 +100,7 @@ function App() {
         setLoading(false);
       }
     };
-
+    setCheckedUsers([]);
     fetchUsers();
   }, [debouncedQuery]);
 
@@ -119,7 +118,7 @@ function App() {
 
         {loading && <p>Loading...</p>}
         {error && <p className="error">{error}</p>}
-        {(users.length < 1 && !loading) && <p className="error">Make a search to show users</p>}
+        {(users.length < 1 && !loading && !error) && <p className="error">Make a search to show users</p>}
 
         <UserList
           users={users}
