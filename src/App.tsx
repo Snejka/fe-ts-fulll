@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import rawData from './mocks/users.json';
-import type { User } from './types/User';
+import { useState, useEffect } from "react";
+// import rawData from './mocks/users.json';
+import type { User } from "./types/User";
 
-import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import UserList from './components/UserList';
-import Footer from './components/Footer';
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import UserList from "./components/UserList";
+import Footer from "./components/Footer";
 
-import './App.css';
+import "./App.css";
 
 type UserResponse = {
   total_count: number;
@@ -16,23 +16,102 @@ type UserResponse = {
 };
 
 function App() {
-  const data = rawData as UserResponse;
-  const typedUsers = data.items;
-
   const [checkedUsers, setCheckedUsers] = useState<number[]>([]);
-
+  
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  
   const handleCheck = (id: number) => {
-    setCheckedUsers(prev =>
-      prev.includes(id) ? prev.filter(uid => uid !== id) : [...prev, id]
+    setCheckedUsers((prev) =>
+      prev.includes(id) ? prev.filter((uid) => uid !== id) : [...prev, id]
     );
   };
+
+// Debounce query input by 500ms
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [query]);
+
+  // Fetch users whenever debouncedQuery changes
+  useEffect(() => {
+    if (!debouncedQuery) {
+      setUsers([]);
+      setError("");
+      return;
+    }
+
+    const fetchUsers = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const token = import.meta.env.VITE_GITHUB_TOKEN;
+
+        const res = await fetch(
+          `https://api.github.com/search/users?q=${encodeURIComponent(
+            debouncedQuery
+          )}`,
+          {
+            headers: token
+              ? { Authorization: `token ${token}` }
+              : undefined,
+          }
+        );
+
+        if (res.status === 403) {
+          setError("GitHub API rate limit exceeded.");
+          setUsers([]);
+          setLoading(false);
+          return;
+        }
+
+        if (!res.ok) {
+          throw new Error("Something went wrong while fetching data.");
+        }
+
+        const data: UserResponse = await res.json();
+
+        if (data.items.length === 0) {
+          setError("No users found.");
+          setUsers([]);
+        } else {
+          setUsers(data.items);
+        }
+      } catch (err) {
+        setError((err as Error).message);
+        setUsers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, [debouncedQuery]);
 
   return (
     <>
       <Header />
       <main>
-        <SearchBar selectedCount={checkedUsers.length} />
-        <UserList users={typedUsers} checkedUsers={checkedUsers} onCheck={handleCheck} />
+        <SearchBar
+          query={query}
+          onSearchChange={setQuery}
+          selectedCount={checkedUsers.length}
+        />
+
+        {loading && <p>Loading...</p>}
+        {error && <p className="error">{error}</p>}
+
+        <UserList
+          users={users}
+          checkedUsers={checkedUsers}
+          onCheck={handleCheck}
+        />
       </main>
       <Footer />
     </>
