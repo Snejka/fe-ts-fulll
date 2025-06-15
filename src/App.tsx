@@ -30,6 +30,16 @@ function App() {
     );
   };
 
+  const handleSelectAll = () => {
+    if (checkedUsers.length === users.length) {
+      // All selected, so clear selection
+      setCheckedUsers([]);
+    } else {
+      // Select all user IDs
+      setCheckedUsers(users.map(user => user.id));
+    }
+  };
+
 // Debounce query input by 500ms
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -102,6 +112,8 @@ function App() {
           query={query}
           onSearchChange={setQuery}
           selectedCount={checkedUsers.length}
+          allSelected={checkedUsers.length === users.length && users.length > 0}
+          onSelectAll={handleSelectAll}
         />
 
         {loading && <p>Loading...</p>}
