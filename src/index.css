@@ -38,11 +38,12 @@
   background: var(--primary-color);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   box-shadow: var(--box-shadow);
   border-bottom: solid 1px var(--primary-color-dark);
   font-family: Arial, sans-serif;
   color: var(--text-color-light);
+  padding: 0 1rem;
 
   h1 {
     margin: 0;
@@ -118,12 +119,21 @@ input[type="text"] {
 .icon-button {
   color: var(--primary-color);
   font-size: 1.2rem;
-  border: 1px solid var(--gray-color-accent);
 
   &:hover {
     color: var(--primary-color-dark);
     box-shadow: var(--box-shadow);
     background-color: var(--color-light);
+  }
+
+  &.light {
+    color: var(--text-color-light);
+    
+    &:hover {
+      color: var(--primary-color-dark);
+      box-shadow: var(--box-shadow);
+      background-color: var(--color-light);
+    }
   }
 }
 

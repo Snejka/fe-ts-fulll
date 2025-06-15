@@ -1,3 +1,5 @@
+import { useEditMode } from "../context/EditModeContext";
+
 type SearchBarProps = {
   query: string;
   onSearchChange: (value: string) => void;
@@ -13,6 +15,9 @@ export default function SearchBar({
     allSelected,
     onSelectAll,
 }: SearchBarProps) {
+    
+    const { isEditMode } = useEditMode();
+
     const hasSelection = selectedCount > 0;
 
     return (
@@ -26,7 +31,7 @@ export default function SearchBar({
                 onChange={(e) => onSearchChange(e.target.value)}
             />
 
-            <div className="control-bar">
+            { isEditMode && <div className="control-bar">
                 <label className="select-all" htmlFor="checked-items">
                     <input
                         id="checked-items"
@@ -45,7 +50,7 @@ export default function SearchBar({
                         <i className="fa-regular fa-trash-can"></i>
                     </button>
                 </div> }
-            </div>
+            </div>}
         </section>
     );
 }
