@@ -14,8 +14,8 @@ type UserResponse = {
 };
 
 function App() {
+
   const [checkedUsers, setCheckedUsers] = useState<number[]>([]);
-  
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [users, setUsers] = useState<User[]>([]);
@@ -36,6 +36,19 @@ function App() {
       // Select all user IDs
       setCheckedUsers(users.map(user => user.id));
     }
+  };
+
+  const handleDelete = () => {
+    const updatedUsers = users.filter(user => !checkedUsers.includes(user.id));
+    setUsers(updatedUsers);
+    setCheckedUsers([]);
+    if (updatedUsers.length === 0) {setQuery("")};
+  };
+
+  const handleCopy = () => {
+    // Implement copy logic here
+    console.log("Copy users with IDs:", checkedUsers);
+    // For now, just log the checked user IDs
   };
 
 // Debounce query input by 500ms
@@ -112,6 +125,8 @@ function App() {
           selectedCount={checkedUsers.length}
           allSelected={checkedUsers.length === users.length && users.length > 0}
           onSelectAll={handleSelectAll}
+          onDelete={handleDelete}
+          onCopy={handleCopy}
         />
 
         {loading && <p>Loading...</p>}
