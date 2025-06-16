@@ -1,4 +1,7 @@
 import { useEditMode } from "../hooks/useEditMode";
+import "../styles/search-bar.css";
+import Button from "./ui/Button";
+import Checkbox from "./ui/Checkbox";
 
 type SearchBarProps = {
   query: string;
@@ -26,29 +29,31 @@ export default function SearchBar({
                 type="text"
                 name="main-search"
                 placeholder="Search users..."
+                aria-label="Search users"
                 className="user-search"
                 value={query}
                 onChange={(e) => onSearchChange(e.target.value)}
             />
 
             { isEditMode && <div className="control-bar">
-                <label className="select-all" htmlFor="checked-items">
-                    <input
+                {/* <label className="select-all" htmlFor="checked-items"> */}
+                    <Checkbox
                         id="checked-items"
                         type="checkbox"
                         onChange={onSelectAll}
                         checked={allSelected}
-                    />{" "}
-                    { hasSelection ? `${selectedCount} items selected` : "Select All"}
-                </label>
+                        label={ hasSelection ? `${selectedCount} items selected` : "Select All"}
+                    />
+                    
+                {/* </label> */}
 
                 { hasSelection && <div className="btn-group">
-                    <button className="icon-button">
+                    <Button className="icon-button" aria-label="Copy selected users">
                         <i className="fa-regular fa-copy"></i>
-                    </button>
-                    <button className="icon-button">
+                    </Button>
+                    <Button className="icon-button" aria-label="Delete selected users">
                         <i className="fa-regular fa-trash-can"></i>
-                    </button>
+                    </Button>
                 </div> }
             </div>}
         </section>

@@ -1,4 +1,6 @@
+import '../styles/header.css';
 import { useEditMode } from "../hooks/useEditMode";
+import Button from "./ui/Button";
 
 export default function Header() {
 
@@ -6,14 +8,18 @@ export default function Header() {
 
   return (
     <header className="app-header">
-      <button className="icon-button light">
+      <Button className="icon-button light" aria-label="Select from menu">
         <i className="fa-solid fa-bars"></i>
-      </button>
+      </Button>
+        
       <h1>GitHub Search</h1>
-      <button className="icon-button light" onClick={toggleEditMode}>
-        {isEditMode ? "On" : "Off"}
+
+      <Button className="icon-button light" 
+              onClick={toggleEditMode} 
+              aria-label={`Toggle edit mode ${isEditMode ? "on" : "off"}`}>
+        <span className="info">{isEditMode ? "On" : "Off"}</span>
         <i className="fa-regular fa-pen-to-square"></i>
-      </button>
+      </Button>
     </header>
   );
 }

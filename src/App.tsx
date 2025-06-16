@@ -7,8 +7,6 @@ import SearchBar from "./components/SearchBar";
 import UserList from "./components/UserList";
 import Footer from "./components/Footer";
 
-import "./App.css";
-
 type UserResponse = {
   total_count: number;
   incomplete_results: boolean;
