@@ -46,9 +46,18 @@ function App() {
   };
 
   const handleCopy = () => {
-    // Implement copy logic here
-    console.log("Copy users with IDs:", checkedUsers);
-    // For now, just log the checked user IDs
+    const generateUniqueId = (id: number) => {
+      return Number(`${id}${Math.floor(Math.random() * 10000)}`);
+    };
+
+    const selectedUsers = users.filter(user => checkedUsers.includes(user.id));
+    
+    const duplicatedUsers = selectedUsers.map(user => ({
+      ...user, 
+      id: generateUniqueId(user.id),
+      login: `${user.login}_copy`
+    }));
+    setUsers(prev => [...prev, ...duplicatedUsers]);
   };
 
 // Debounce query input by 500ms
