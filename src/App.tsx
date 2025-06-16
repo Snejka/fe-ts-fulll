@@ -1,128 +1,33 @@
-import { useState, useEffect } from "react";
-// import rawData from './mocks/users.json';
-import type { User } from "./types/User";
+import { useState } from "react";
+import { useUsers } from "./hooks/useUsers";
+import { useUserSelection } from "./hooks/useUserSelection";
 
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import UserList from "./components/UserList";
 import Footer from "./components/Footer";
 
-type UserResponse = {
-  total_count: number;
-  incomplete_results: boolean;
-  items: User[];
-};
-
 function App() {
-
-  const [checkedUsers, setCheckedUsers] = useState<number[]>([]);
   const [query, setQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState(query);
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  
-  const handleCheck = (id: number) => {
-    setCheckedUsers((prev) =>
-      prev.includes(id) ? prev.filter((uid) => uid !== id) : [...prev, id]
-    );
+  const { users, setUsers, loading, error } = useUsers(query);
+  const {
+    checkedUsers,
+    handleCheck,
+    handleSelectAll,
+    handleDelete,
+    handleCopy,
+  } = useUserSelection(users);
+
+  const onDelete = () => {
+    const remaining = handleDelete();
+    setUsers(remaining);
+    if (remaining.length === 0) setQuery("");
   };
 
-  const handleSelectAll = () => {
-    if (checkedUsers.length === users.length) {
-      // All selected, so clear selection
-      setCheckedUsers([]);
-    } else {
-      // Select all user IDs
-      setCheckedUsers(users.map(user => user.id));
-    }
+  const onCopy = () => {
+    const duplicated = handleCopy();
+    setUsers((prev) => [...prev, ...duplicated]);
   };
-
-  const handleDelete = () => {
-    const updatedUsers = users.filter(user => !checkedUsers.includes(user.id));
-    setUsers(updatedUsers);
-    setCheckedUsers([]);
-    if (updatedUsers.length === 0) {setQuery("")};
-  };
-
-  const handleCopy = () => {
-    const generateUniqueId = (id: number) => {
-      return Number(`${id}${Math.floor(Math.random() * 10000)}`);
-    };
-
-    const selectedUsers = users.filter(user => checkedUsers.includes(user.id));
-    
-    const duplicatedUsers = selectedUsers.map(user => ({
-      ...user, 
-      id: generateUniqueId(user.id),
-      login: `${user.login}_copy`
-    }));
-    setUsers(prev => [...prev, ...duplicatedUsers]);
-  };
-
-// Debounce query input by 500ms
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedQuery(query);
-    }, 500);
-
-    return () => clearTimeout(handler);
-  }, [query]);
-
-  // Fetch users whenever debouncedQuery changes
-  useEffect(() => {
-    if (!debouncedQuery) {
-      setUsers([]);
-      setError("");
-      return;
-    }
-
-    const fetchUsers = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        const token = import.meta.env.VITE_GITHUB_TOKEN;
-
-        const res = await fetch(
-          `https://api.github.com/search/users?q=${encodeURIComponent(
-            debouncedQuery
-          )}`,
-          {
-            headers: token
-              ? { Authorization: `token ${token}` }
-              : undefined,
-          }
-        );
-
-        if (res.status === 403) {
-          setError("GitHub API rate limit exceeded.");
-          setUsers([]);
-          setLoading(false);
-          return;
-        }
-
-        if (!res.ok) {
-          throw new Error("Something went wrong while fetching data.");
-        }
-
-        const data: UserResponse = await res.json();
-
-        if (data.items.length === 0) {
-          setError("No users found.");
-          setUsers([]);
-        } else {
-          setUsers(data.items);
-        }
-      } catch (err) {
-        setError((err as Error).message);
-        setUsers([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    setCheckedUsers([]);
-    fetchUsers();
-  }, [debouncedQuery]);
 
   return (
     <>
@@ -134,13 +39,15 @@ function App() {
           selectedCount={checkedUsers.length}
           allSelected={checkedUsers.length === users.length && users.length > 0}
           onSelectAll={handleSelectAll}
-          onDelete={handleDelete}
-          onCopy={handleCopy}
+          onDelete={onDelete}
+          onCopy={onCopy}
         />
 
         {loading && <p>Loading...</p>}
         {error && <p className="error">{error}</p>}
-        {(users.length < 1 && !loading && !error) && <p className="error">Make a search to show users</p>}
+        {users.length < 1 && !loading && !error && (
+          <p className="error">Make a search to show users</p>
+        )}
 
         <UserList
           users={users}
