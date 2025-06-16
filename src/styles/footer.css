@@ -1,0 +1,9 @@
+footer {
+  padding: .3rem;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  border-top: solid 1px var(--gray-color-dark);
+}

@@ -1,5 +1,9 @@
 import { useEditMode } from "../hooks/useEditMode";
 import type { User } from '../types/User';
+import Button from './ui/Button';
+import Checkbox from "./ui/Checkbox";
+
+import '../styles/user-card.css';
 
 type UserCardProps = {
   user: User;
@@ -13,8 +17,9 @@ export default function UserCard({ user, checked, onCheck }: UserCardProps) {
 
     return (
         <li className="card">
-            {isEditMode && <input
+            {isEditMode && <Checkbox
                 type="checkbox"
+                aria-label={`Select user ${user.login}`}
                 checked={checked}
                 onChange={() => onCheck(user.id)}
             />}
@@ -23,9 +28,9 @@ export default function UserCard({ user, checked, onCheck }: UserCardProps) {
                 <p>ID: {user.id}</p>
                 <h1 className="card-title">{user.login}</h1>
             </div>
-            <button className="main-button" onClick={() => console.log(user)}>
+            <Button className="main-button" onClick={() => console.log(user)}>
                 View Profile
-            </button>
+            </Button>
         </li>
     );
 }
