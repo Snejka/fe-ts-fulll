@@ -1,54 +1,146 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# GitHub User Search App
 
-Currently, two official plugins are available:
+A React app for searching GitHub users. You can type a query and get results instantly, without needing to press ENTER or click a submit button. The results display GitHub users in a responsive layout.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Search GitHub users 
+- Display user list
+- Option to enable Edit Mode to manipulate the users  
+- Select/Deselect users individually or all at once  
+- Delete selected users  
+- Duplicate selected users with unique IDs  
+- Loading and error status messages  
+- Add GitHub Token to avoid Github api rate limit
+- Clean, modular components with React hooks  
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## Technologies Used
+
+- **React** (Functional Components & Hooks)  
+- **TypeScript** 
+- **Vite** (build tool)  
+- **Vitest** & **@testing-library/react** for testing 
+
+---
+
+
+## Screenshot
+
+![App Screenshot](screenshot.png)
+
+---
+
+## Setup
+
+### 1. Prerequisites
+
+- Node.js (>=14)  
+- npm 
+
+### 2. Clone the repo
+
+```bash
+git clone https://github.com/Snejka/fe-ts-fulll.git
+cd fe-ts-fulll
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+### 4. Add GitHub Token (optional)
+
+To avoid rate-limiting from the GitHub API, you can add a personal token:
+
+Create a `.env` file:
+
+```
+VITE_GITHUB_TOKEN=your_github_token_here
+```
+> This is optional. The app still works without it, but may hit API limits.
+
+###  5. Run the app locally
+
+```bash
+npm run dev
+```
+
+Open in browser: [http://localhost:5173](http://localhost:5173)
+
+---
+
+## Testing
+
+Run all tests with:
+
+```bash
+npm run test
+```
+
+Use `--watch` during development:
+
+```bash
+npm run test -- --watch
+```
+
+---
+
+## Available Scripts
+
+| Command           | Description                  |
+| ----------------- | ---------------------------- |
+| `npm run dev`     | Run the development server   |
+| `npm run build`   | Build the app for production |
+| `npm run preview` | Preview the production build |
+| `npm run test`    | Run unit tests with Vitest   |
+
+---
+
+## Project Structure
+
+```
+src/
+├── __tests__/        # Test Files for Unit testing
+├── assets/           # Images and graphics
+├── components/       # UI components (Button, UserList, Header, etc.)
+├── context/          # React context (EditModeContext)
+├── hooks/            # Custom hooks (useUsers, useUserSelection)
+├── mocks/            # Mocked Data
+├── styles/           # CSS Files
+├── types/            # TypeScript types (User, UserCardProps, etc.)
+├── App.tsx           # Main app component
+└── main.tsx          # Entry point
+```
+
+---
+
+## To-Do
+
+### Layout
+- Style enhancements
+- Add dark mode
+
+### Functionality
+- Open user profil on Github
+- Option to Add New user
+- Option to Edit existing user data
+
+### Testing
+- Improve unit tests
+- Add E2E tests with Playwright or Cypress
+
+---
+
+## 🧑‍💻 Author
+
+Made with ❤️ by [Snezhana KRASTEVA](https://www.linkedin.com/in/snezhana-krasteva/)
+
+---
