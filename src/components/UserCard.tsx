@@ -5,7 +5,7 @@ import Checkbox from "./ui/Checkbox";
 
 import '../styles/user-card.css';
 
-type UserCardProps = {
+export type UserCardProps = {
   user: User;
   checked: boolean;
   onCheck: (id: number) => void;
