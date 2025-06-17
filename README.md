@@ -29,6 +29,13 @@ A React app for searching GitHub users. You can type a query and get results ins
 
 ---
 
+
+## Screenshot
+
+![App Screenshot](screenshot.png)
+
+---
+
 ## Setup
 
 ### 1. Prerequisites
@@ -112,12 +119,6 @@ src/
 ├── App.tsx           # Main app component
 └── main.tsx          # Entry point
 ```
-
----
-
-## Screenshot
-
-![App Screenshot](screenshot.png)
 
 ---
 
