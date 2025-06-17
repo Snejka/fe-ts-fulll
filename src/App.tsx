@@ -4,6 +4,7 @@ import { useUserSelection } from "./hooks/useUserSelection";
 
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
+import StatusMessages from "./components/StatusMessages";
 import UserList from "./components/UserList";
 import Footer from "./components/Footer";
 
@@ -43,11 +44,7 @@ function App() {
           onCopy={onCopy}
         />
 
-        {loading && <p>Loading...</p>}
-        {error && <p className="error">{error}</p>}
-        {users.length < 1 && !loading && !error && (
-          <p className="error">Make a search to show users</p>
-        )}
+        <StatusMessages loading={loading} error={error} usersCount={users.length} />
 
         <UserList
           users={users}

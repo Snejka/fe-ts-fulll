@@ -2,7 +2,6 @@ import { describe, it, vi, expect, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import SearchBar from "../components/SearchBar";
 
-// Mock the useEditMode hook
 vi.mock("../hooks/useEditMode", () => ({
   useEditMode: () => ({ isEditMode: true }),
 }));
