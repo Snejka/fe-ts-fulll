@@ -101,10 +101,14 @@ npm run test -- --watch
 
 ```
 src/
+├── __tests__/        # Test Files for Unit testing
+├── assets/           # Images and graphics
 ├── components/       # UI components (Button, UserList, Header, etc.)
-├── hooks/            # Custom hooks (useUsers, useUserSelection)
-├── types/            # TypeScript types (User, UserCardProps, etc.)
 ├── context/          # React context (EditModeContext)
+├── hooks/            # Custom hooks (useUsers, useUserSelection)
+├── mocks/            # Mocked Data
+├── styles/           # CSS Files
+├── types/            # TypeScript types (User, UserCardProps, etc.)
 ├── App.tsx           # Main app component
 └── main.tsx          # Entry point
 ```
@@ -113,7 +117,7 @@ src/
 
 ## Screenshot
 
-![App Screenshot](./assets/screenshot.png)
+![App Screenshot](screenshot.png)
 
 ---
 
