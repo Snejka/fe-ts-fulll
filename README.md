@@ -144,3 +144,4 @@ src/
 Made with ❤️ by [Snezhana KRASTEVA](https://www.linkedin.com/in/snezhana-krasteva/)
 
 ---
+> Total development time (TDT): 16h
