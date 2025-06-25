@@ -5,6 +5,8 @@ import Checkbox from "./ui/Checkbox";
 
 // type vs interface -> To read more about the differences, 
 // see https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#difference-between-type-and-interface
+//https://www.typescriptlang.org/cheatsheets/
+//https://www.typescriptlang.org/docs/handbook/2/objects.html
 type SearchBarProps = {
     query: string;
     onSearchChange: (value: string) => void;
