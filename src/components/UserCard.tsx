@@ -5,6 +5,10 @@ import Checkbox from "./ui/Checkbox";
 
 import '../styles/user-card.css';
 
+//Learn best use cases for enoms vs types in TypeScript:
+// https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#enums-vs-unions
+// https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+
 export type UserCardProps = {
   user: User;
   checked: boolean;
