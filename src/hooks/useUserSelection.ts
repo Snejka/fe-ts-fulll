@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { User } from "../types/User";
 
+//useReducer() is a better option for managing complex state.
+//Makes it easier to extend functionality in the future.
 export const useUserSelection = (users: User[]) => {
   const [checkedUsers, setCheckedUsers] = useState<number[]>([]);
 
