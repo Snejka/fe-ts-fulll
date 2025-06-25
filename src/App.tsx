@@ -8,6 +8,7 @@ import StatusMessages from "./components/StatusMessages";
 import UserList from "./components/UserList";
 import Footer from "./components/Footer";
 
+//Refactor TS as it is in this video: https://www.youtube.com/watch?v=1jMJDbq7ZX4&list=PLpPqplz6dKxW1LdiHpJMyC5bzuzGxKlFm&index=1
 function App() {
   const [query, setQuery] = useState("");
   const { users, setUsers, loading, error } = useUsers(query);
