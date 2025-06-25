@@ -3,6 +3,8 @@ import "../styles/search-bar.css";
 import Button from "./ui/Button";
 import Checkbox from "./ui/Checkbox";
 
+// type vs interface -> To read more about the differences, 
+// see https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#difference-between-type-and-interface
 type SearchBarProps = {
     query: string;
     onSearchChange: (value: string) => void;
