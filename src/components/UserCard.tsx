@@ -9,6 +9,18 @@ import '../styles/user-card.css';
 // https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#enums-vs-unions
 // https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
 
+// interface UserCardProps {
+//   user: User;
+// }
+
+// | If you need...                     | Use                            |       |
+// | ---------------------------------- | ------------------------------ | ----- |
+// | A **fixed set of values**          | `enum` or \`type "A"           | "B"\` |
+// | An **object shape** (props, API)   | `interface`                    |       |
+// | A **union or alias**               | `type`                         |       |
+// | To **extend types**                | `interface` or `type` with `&` |       |
+// | **Declaration merging** (advanced) | `interface`                    |       |
+
 export type UserCardProps = {
   user: User;
   checked: boolean;
